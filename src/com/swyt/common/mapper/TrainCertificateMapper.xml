@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.swyt.common.dao.TrainCertificateMapper" >
+  <resultMap id="BaseResultMap" type="com.swyt.common.entity.TrainCertificate" >
+    <id column="ID" property="id" jdbcType="CHAR" />
+    <result column="COMPANY_COLLIERY_ID" property="companyCollieryId" jdbcType="CHAR" />
+    <result column="CERTIFICATE_NAME" property="certificateName" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_NUMBER" property="certificateNumber" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_AUTHORITY" property="certificateAuthority" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_BEGIN_DATE" property="certificateBeginDate" jdbcType="DATE" />
+    <result column="CERTIFICATE_END_DATE" property="certificateEndDate" jdbcType="DATE" />
+    <result column="CERTIFICATE_HOLDER_ID" property="certificateHolderId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DEL_FLG" property="delFlg" jdbcType="BIT" />
+    <result column="INSERT_USER_ID" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="INSERT_DATETIME" property="insertDatetime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMPANY_COLLIERY_ID, CERTIFICATE_NAME, CERTIFICATE_NUMBER, CERTIFICATE_AUTHORITY, 
+    CERTIFICATE_BEGIN_DATE, CERTIFICATE_END_DATE, CERTIFICATE_HOLDER_ID, REMARK, DEL_FLG, 
+    INSERT_USER_ID, INSERT_DATETIME, UPDATE_USER_ID, UPDATE_DATETIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.swyt.common.entity.TrainCertificateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from train_certificate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from train_certificate
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from train_certificate
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.swyt.common.entity.TrainCertificateExample" >
+    delete from train_certificate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.swyt.common.entity.TrainCertificate" >
+    insert into train_certificate (ID, COMPANY_COLLIERY_ID, CERTIFICATE_NAME, 
+      CERTIFICATE_NUMBER, CERTIFICATE_AUTHORITY, 
+      CERTIFICATE_BEGIN_DATE, CERTIFICATE_END_DATE, CERTIFICATE_HOLDER_ID, 
+      REMARK, DEL_FLG, INSERT_USER_ID, 
+      INSERT_DATETIME, UPDATE_USER_ID, UPDATE_DATETIME
+      )
+    values (#{id,jdbcType=CHAR}, #{companyCollieryId,jdbcType=CHAR}, #{certificateName,jdbcType=VARCHAR}, 
+      #{certificateNumber,jdbcType=VARCHAR}, #{certificateAuthority,jdbcType=VARCHAR}, 
+      #{certificateBeginDate,jdbcType=DATE}, #{certificateEndDate,jdbcType=DATE}, #{certificateHolderId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{delFlg,jdbcType=BIT}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertDatetime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.swyt.common.entity.TrainCertificate" >
+    insert into train_certificate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="companyCollieryId != null" >
+        COMPANY_COLLIERY_ID,
+      </if>
+      <if test="certificateName != null" >
+        CERTIFICATE_NAME,
+      </if>
+      <if test="certificateNumber != null" >
+        CERTIFICATE_NUMBER,
+      </if>
+      <if test="certificateAuthority != null" >
+        CERTIFICATE_AUTHORITY,
+      </if>
+      <if test="certificateBeginDate != null" >
+        CERTIFICATE_BEGIN_DATE,
+      </if>
+      <if test="certificateEndDate != null" >
+        CERTIFICATE_END_DATE,
+      </if>
+      <if test="certificateHolderId != null" >
+        CERTIFICATE_HOLDER_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="delFlg != null" >
+        DEL_FLG,
+      </if>
+      <if test="insertUserId != null" >
+        INSERT_USER_ID,
+      </if>
+      <if test="insertDatetime != null" >
+        INSERT_DATETIME,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="companyCollieryId != null" >
+        #{companyCollieryId,jdbcType=CHAR},
+      </if>
+      <if test="certificateName != null" >
+        #{certificateName,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNumber != null" >
+        #{certificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateAuthority != null" >
+        #{certificateAuthority,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateBeginDate != null" >
+        #{certificateBeginDate,jdbcType=DATE},
+      </if>
+      <if test="certificateEndDate != null" >
+        #{certificateEndDate,jdbcType=DATE},
+      </if>
+      <if test="certificateHolderId != null" >
+        #{certificateHolderId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null" >
+        #{delFlg,jdbcType=BIT},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertDatetime != null" >
+        #{insertDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.swyt.common.entity.TrainCertificateExample" resultType="java.lang.Integer" >
+    select count(*) from train_certificate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update train_certificate
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.companyCollieryId != null" >
+        COMPANY_COLLIERY_ID = #{record.companyCollieryId,jdbcType=CHAR},
+      </if>
+      <if test="record.certificateName != null" >
+        CERTIFICATE_NAME = #{record.certificateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateNumber != null" >
+        CERTIFICATE_NUMBER = #{record.certificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateAuthority != null" >
+        CERTIFICATE_AUTHORITY = #{record.certificateAuthority,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateBeginDate != null" >
+        CERTIFICATE_BEGIN_DATE = #{record.certificateBeginDate,jdbcType=DATE},
+      </if>
+      <if test="record.certificateEndDate != null" >
+        CERTIFICATE_END_DATE = #{record.certificateEndDate,jdbcType=DATE},
+      </if>
+      <if test="record.certificateHolderId != null" >
+        CERTIFICATE_HOLDER_ID = #{record.certificateHolderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlg != null" >
+        DEL_FLG = #{record.delFlg,jdbcType=BIT},
+      </if>
+      <if test="record.insertUserId != null" >
+        INSERT_USER_ID = #{record.insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insertDatetime != null" >
+        INSERT_DATETIME = #{record.insertDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUserId != null" >
+        UPDATE_USER_ID = #{record.updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDatetime != null" >
+        UPDATE_DATETIME = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update train_certificate
+    set ID = #{record.id,jdbcType=CHAR},
+      COMPANY_COLLIERY_ID = #{record.companyCollieryId,jdbcType=CHAR},
+      CERTIFICATE_NAME = #{record.certificateName,jdbcType=VARCHAR},
+      CERTIFICATE_NUMBER = #{record.certificateNumber,jdbcType=VARCHAR},
+      CERTIFICATE_AUTHORITY = #{record.certificateAuthority,jdbcType=VARCHAR},
+      CERTIFICATE_BEGIN_DATE = #{record.certificateBeginDate,jdbcType=DATE},
+      CERTIFICATE_END_DATE = #{record.certificateEndDate,jdbcType=DATE},
+      CERTIFICATE_HOLDER_ID = #{record.certificateHolderId,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      DEL_FLG = #{record.delFlg,jdbcType=BIT},
+      INSERT_USER_ID = #{record.insertUserId,jdbcType=VARCHAR},
+      INSERT_DATETIME = #{record.insertDatetime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{record.updateUserId,jdbcType=VARCHAR},
+      UPDATE_DATETIME = #{record.updateDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.swyt.common.entity.TrainCertificate" >
+    update train_certificate
+    <set >
+      <if test="companyCollieryId != null" >
+        COMPANY_COLLIERY_ID = #{companyCollieryId,jdbcType=CHAR},
+      </if>
+      <if test="certificateName != null" >
+        CERTIFICATE_NAME = #{certificateName,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNumber != null" >
+        CERTIFICATE_NUMBER = #{certificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateAuthority != null" >
+        CERTIFICATE_AUTHORITY = #{certificateAuthority,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateBeginDate != null" >
+        CERTIFICATE_BEGIN_DATE = #{certificateBeginDate,jdbcType=DATE},
+      </if>
+      <if test="certificateEndDate != null" >
+        CERTIFICATE_END_DATE = #{certificateEndDate,jdbcType=DATE},
+      </if>
+      <if test="certificateHolderId != null" >
+        CERTIFICATE_HOLDER_ID = #{certificateHolderId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null" >
+        DEL_FLG = #{delFlg,jdbcType=BIT},
+      </if>
+      <if test="insertUserId != null" >
+        INSERT_USER_ID = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertDatetime != null" >
+        INSERT_DATETIME = #{insertDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.swyt.common.entity.TrainCertificate" >
+    update train_certificate
+    set COMPANY_COLLIERY_ID = #{companyCollieryId,jdbcType=CHAR},
+      CERTIFICATE_NAME = #{certificateName,jdbcType=VARCHAR},
+      CERTIFICATE_NUMBER = #{certificateNumber,jdbcType=VARCHAR},
+      CERTIFICATE_AUTHORITY = #{certificateAuthority,jdbcType=VARCHAR},
+      CERTIFICATE_BEGIN_DATE = #{certificateBeginDate,jdbcType=DATE},
+      CERTIFICATE_END_DATE = #{certificateEndDate,jdbcType=DATE},
+      CERTIFICATE_HOLDER_ID = #{certificateHolderId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      DEL_FLG = #{delFlg,jdbcType=BIT},
+      INSERT_USER_ID = #{insertUserId,jdbcType=VARCHAR},
+      INSERT_DATETIME = #{insertDatetime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
